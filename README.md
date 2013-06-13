@@ -1,4 +1,7 @@
-# StringCalc in nodejs
+# Yahtzee Kata in nodejs
 =================
 
-String Calculator Kata -- Lunch &amp; Learn -- Done with Josh Shemas
+Yahtzee Kata -- Done with David Ihnen
+
+
+(lots of redundant code copied from another project)
