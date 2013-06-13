@@ -1,11 +1,10 @@
-function Yahtzee() {
-};
+function Yahtzee(array) {
+	this.score = new roll(array);
+}
 
-
-Yahtzee.prototype.roll = function(array) {
+Yahtzee.roll = function(array) {
 	return new roll(array);
 };
-
 
 roll.prototype.singles = function(num, array) {
 	return array.filter(function(a) {
@@ -43,24 +42,17 @@ function roll(array) {
 		}).length > 1
 	}).concat([0])[0] * 2;
 
-	var seen = 0;
+	var seen = {};
 	var seensecond = 0;
 	var hash = {};
-	// there is a bug here with two distinct pairs...
-	this.twoPairs = array.sort(function(a, b) {
-		return b - a;
-	}).filter(function(c) {
-		if (hash[c]) return false;
+
+	this.twoPairs = array.filter(function(c) {
+		if (c in hash) {
+			delete hash[c];
+			return true;
+		}
 		hash[c] = true;
-		return array.filter(function(d) {
-			return d == c;
-		}).length > 1
-	}).filter(function(c) {
-		if (c == seen) return false;
-		if (c == seensecond) return false;
-		if (seen == 0) { seen = c; return true; }
-		seensecond = c;
-		return true;
+		return false;
 	}).concat([0]).reduce(function (a, b) {
 		return a + b;
 	}) * 2;
